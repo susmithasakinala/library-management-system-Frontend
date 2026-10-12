@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-box">
+      <div class="auth-side">
+        <h1>Join the Library</h1>
+        <p>Create your account with a name, a username and a password. After signing up you can log in with the same username and password.</p>
+      </div>
+      <div class="auth-form">
+        <h2>Create account</h2>
+        <div class="sub">It takes a few seconds</div>
+        <input id="fullName" placeholder="Full name">
+        <input id="username" placeholder="Choose a username">
+        <input id="password" type="password" placeholder="Password (min 6 characters)">
+        <input id="confirm" type="password" placeholder="Confirm password">
+        <button class="primary" onclick="signup()">Sign Up</button>
+        <p id="msg" class="error"></p>
+        <div class="switch">Already have an account? <a href="login.html">Login</a></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/api.js"></script>
+  <script>
+    async function signup() {
+      const fullName = document.getElementById("fullName").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+      const msg = document.getElementById("msg");
+
+      if (password !== confirm) {
+        msg.className = "error";
+        msg.innerText = "Passwords do not match";
+        return;
+      }
+      try {
+        const result = await apiPost("/auth/register", { fullName, username, password });
+        msg.className = "success";
+        msg.innerText = result.message + ". Redirecting to login...";
+        setTimeout(() => window.location.href = "login.html", 1500);
+      } catch (e) {
+        msg.className = "error";
+        msg.innerText = e.message;
+      }
+    }
+  </script>
+</body>
+</html>

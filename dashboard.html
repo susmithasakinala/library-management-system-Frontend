@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <div>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="books.html">Books</a>
+      <a href="students.html">Students</a>
+      <a href="issue.html">Issue / Return</a>
+      <a href="history.html">History</a>
+    </div>
+    <button onclick="logout()">Logout</button>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h2 id="welcome">Welcome</h2>
+      <p>Here is a quick look at your library today. Use the menu above to manage books, students and issued books.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num" id="totalBooks">0</div><div class="label">Total book titles</div></div>
+      <div class="stat"><div class="num" id="totalStudents">0</div><div class="label">Registered students</div></div>
+      <div class="stat good"><div class="num" id="issuedCount">0</div><div class="label">Books currently issued</div></div>
+      <div class="stat warn"><div class="num" id="overdueCount">0</div><div class="label">Overdue books</div></div>
+      <div class="stat warn"><div class="num" id="totalFines">Rs. 0</div><div class="label">Fines collected</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Library Rules Book: Late Return Fine</h2>
+      <p>A book can be kept for <b>14 days</b>. After that, a fine is charged when the book is returned. A student can hold at most <b>3 books</b> at a time.</p>
+      <table class="rules-table">
+        <thead><tr><th>Days late</th><th>Fine</th></tr></thead>
+        <tbody>
+          <tr><td>1 to 3 days</td><td>Rs. 10</td></tr>
+          <tr><td>4 to 7 days</td><td>Rs. 20</td></tr>
+          <tr><td>8 to 14 days</td><td>Rs. 50</td></tr>
+          <tr><td>15 days or more</td><td>Rs. 100</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Overdue Books and Fines</h2>
+      <table>
+        <thead><tr><th>Student</th><th>Book</th><th>Due Date</th><th>Days Late</th><th>Fine</th></tr></thead>
+        <tbody id="overdueTable"></tbody>
+      </table>
+    </div>
+  </div>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

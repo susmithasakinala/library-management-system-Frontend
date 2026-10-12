@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Library Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-box">
+      <div class="auth-side">
+        <h1>Library Management System</h1>
+        <p>Keep track of books, students and issued copies in one place. Fines are calculated automatically when a book comes back late.</p>
+      </div>
+      <div class="auth-form">
+        <h2>Welcome back</h2>
+        <div class="sub">Login to continue</div>
+        <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <button class="primary" onclick="login()">Login</button>
+        <p id="msg" class="error"></p>
+        <div class="switch">New here? <a href="signup.html">Create an account</a></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/api.js"></script>
+  <script>
+    if (localStorage.getItem("loggedIn") === "true") {
+      window.location.href = "dashboard.html";
+    }
+
+    async function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      try {
+        const result = await apiPost("/auth/login", { username, password });
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userName", result.name);
+        window.location.href = "dashboard.html";
+      } catch (e) {
+        document.getElementById("msg").innerText = e.message;
+      }
+    }
+  </script>
+</body>
+</html>
